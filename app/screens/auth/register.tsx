@@ -1,66 +1,96 @@
 import {
-  StyleSheet,
-  View,
-  Text,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
   ScrollView,
-  TextInput, Button, TouchableOpacity, Image, Pressable
+  StyleSheet,
+  Text,
+  TextInput,
+  View
 } from 'react-native';
 import React, {useState} from "react";
 
 // Firebase configuration
-import {app} from "@/app/firebase-config"
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, } from "@firebase/auth";
+import {app, db} from "@/app/firebase-config"
+import {createUserWithEmailAndPassword, getAuth,} from "@firebase/auth";
 import {useNavigation} from "@react-navigation/core";
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
+import {error} from '@/constants/errorCodes';
+import { errorHandler } from '@/utils/errorHandler';
+import { addDoc, collection } from 'firebase/firestore';
 
 export default function LoginScreen() {
+
+
+  const {top} = useSafeAreaInsets()
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
+  const auth = getAuth(app);
+
 
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-
-  const validatePassword = (password: string) => {
-    console.log(password)
-  }
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigation = useNavigation()
 
-  const auth = getAuth(app);
 
-  const goToLogin = () => {
-    navigation.dispatch(
-        CommonActions.navigate({
-          name: 'screens/auth/login',
-        }));
+  const onCreateUserprofile = async (user: any) => {
+    await addDoc(collection(db, 'user_profile'), {
+      name,
+      lastname,
+      email,
+      uid: user.uid,
+      isAdmin: false,
+      isDeliver: false,
+    })
+  }
+
+  const isPasswordValidated = (): boolean => {
+    return password === confirmPassword
+  }
+
+  const isFormValidated = (): boolean => {
+    return name !== undefined && lastname !== undefined && email !== undefined;
   }
 
   const handleSingUp = () => {
+    if (!isFormValidated()) return
+    if (!isPasswordValidated()) return;
+
     createUserWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-          console.log('create user');
-          const user = res.user;
-          console.log(user);
-          // navigation.dispatch(
-          //     CommonActions.navigate({
-          //       name: 'screens/home/home',
-          //     }));
-        })
-        .catch(error => {
-          console.log(error);
-        })
+      .then((res) => {
+        const user = res.user;
+        onCreateUserprofile(user).then((res) => {
+          goToValidateAccount()
+        }).catch((error) => {
+          errorHandler(error.code);
+        });
+      })
+      .catch((error) => {
+        errorHandler(error.code)
+      })
+  }
+
+  const goToValidateAccount = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'screens/not-found/validateAccount',
+      }));
   }
 
   return (
+    <KeyboardAvoidingView style={{flex: 1}}
+                          behavior='padding' keyboardVerticalOffset={keyboardVerticalOffset}
+    >
+
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{
-          flex: 1,
-          width: '100%',
-          height: '100%',
-          alignContent: 'center',
-          justifyContent: 'center',
-        }}>
+        <ScrollView contentContainerStyle={{}}>
           <View style={{
             margin: 25,
           }}>
@@ -78,8 +108,8 @@ export default function LoginScreen() {
             </View>
 
             {/*LOGIN FORM*/}
-            <View  style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Name</Text>
+            <View style={{paddingBottom: 18}}>
+              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Nombre</Text>
               <View style={{
                 borderColor: '#fff',
                 borderRadius: '4px',
@@ -90,14 +120,14 @@ export default function LoginScreen() {
                   fontSize: 18,
                   padding: 5.777,
                 }}
-                           placeholder="Name"
+                           placeholder="Nombre"
                            onChangeText={(text) => setName(text)}
                 ></TextInput>
               </View>
 
             </View>
-            <View  style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Last name</Text>
+            <View style={{paddingBottom: 18}}>
+              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Apellido</Text>
               <View style={{
                 borderColor: '#fff',
                 borderRadius: '4px',
@@ -108,13 +138,13 @@ export default function LoginScreen() {
                   fontSize: 18,
                   padding: 5.777,
                 }}
-                           placeholder="Last name"
+                           placeholder="Apellido"
                            onChangeText={(text) => setLastname(text)}
                 ></TextInput>
               </View>
 
             </View>
-            <View  style={{paddingBottom: 18}}>
+            <View style={{paddingBottom: 18}}>
               <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Email</Text>
               <View style={{
                 borderColor: '#fff',
@@ -132,8 +162,8 @@ export default function LoginScreen() {
               </View>
 
             </View>
-            <View  style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Password</Text>
+            <View style={{paddingBottom: 18}}>
+              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Contraseña</Text>
               <View style={{
                 borderColor: '#fff',
                 borderRadius: '4px',
@@ -144,14 +174,14 @@ export default function LoginScreen() {
                   fontSize: 18,
                   padding: 5.777,
                 }}
-                           placeholder="Password"
+                           placeholder="Contraseña"
                            onChangeText={(text) => setPassword(text)}
                 ></TextInput>
               </View>
 
             </View>
-            <View  style={{paddingBottom: 18}} >
-              <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>Repeat password</Text>
+            <View style={{paddingBottom: 18}}>
+              <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>Confirmar contraseña</Text>
               <View style={{
                 borderColor: '#fff',
                 borderRadius: '4px',
@@ -163,8 +193,8 @@ export default function LoginScreen() {
                   padding: 5.777,
                 }}
                            secureTextEntry={true}
-                           placeholder="Repeat password"
-                           onChangeText={(text) => validatePassword(text)}
+                           placeholder="Confirmar contraseña"
+                           onChangeText={(text) => setConfirmPassword(text)}
 
                 ></TextInput>
               </View>
@@ -173,26 +203,19 @@ export default function LoginScreen() {
             {/*BUTTONS LOGIN AND REGISTER*/}
             <View style={{paddingBottom: 18}}>
               <Pressable style={styles.button} onPress={handleSingUp}>
-                <Text style={styles.text}>{'Register'}</Text>
-              </Pressable>
-            </View>
-            <View style={{paddingBottom: 18}}>
-              <Pressable style={styles.button} onPress={goToLogin}>
-                <Text style={styles.text}>{'Login'}</Text>
+                <Text style={styles.text}>{'Registrar'}</Text>
               </Pressable>
             </View>
           </View>
-
-
-
         </ScrollView>
       </View>
+    </KeyboardAvoidingView>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     height: '100%',
     backgroundColor: '#0c2b43'
   },

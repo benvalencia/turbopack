@@ -3,13 +3,13 @@ import { Alert } from "react-native";
 
 export const errorHandler = (code: string) => {
     let title: string = '';
-    let message: string = '';
+    let message: string = 'Ha ocurrido un error';
 
     if (code === error['301']) {
-        message = 'Un error ha ocurrido, confirma que el formulario está bien completado';
+        message = 'El email ya está siendo usado';
     }
     if (code === error['302']) {
-        message = 'Un error ha ocurrido, confirma que el formulario está bien completado'
+        message = 'El email es invalido'
     }
 
     Alert.alert(title, message, [
