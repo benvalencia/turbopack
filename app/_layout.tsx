@@ -1,37 +1,23 @@
-import {DarkTheme, DefaultTheme, NavigationContainer, ThemeProvider} from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-// import { Stack } from 'expo-router';
+import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
+import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-import {ScreenStack} from "react-native-screens";
-import {Pressable, Text, View} from "react-native";
-import {ThemedText} from "@/components/ThemedText";
-import {HelloWave} from "@/components/HelloWave";
-import {ThemedView} from "@/components/ThemedView";
+import {useColorScheme} from '@/hooks/useColorScheme';
+import {Pressable} from "react-native";
 import LoginScreen from "@/app/screens/auth/login";
 
-// Firebase configuration
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "@firebase/auth";
-import {initializeApp} from "@firebase/app";
-import {firebaseConfig} from "@/app/firebase-config"
-// import { Stack } from 'expo-router';
-
-
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from "@/app/screens/home/home";
 import RegisterScreen from "@/app/screens/auth/register";
 
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useRouter } from 'expo-router';
-import ValidateAccountScreen from '@/app/screens/not-found/validateAccount';
-
-
+import {useRouter} from 'expo-router';
+import ValidateAccountScreen from '@/app/screens/site/validateAccount';
+import NotFoundScreen from "@/app/screens/site/notFound";
 
 const Stack = createStackNavigator();
-
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -70,7 +56,12 @@ export default function RootLayout() {
           }} component={RegisterScreen}/>
           <Stack.Screen name="screens/home/home" options={{title: 'home', headerShown: false, gestureEnabled: false}} component={HomeScreen}/>
 
-          <Stack.Screen name="screens/not-found/validateAccount" options={{title: 'validate account', headerShown: false, gestureEnabled: false}} component={ValidateAccountScreen}/>
+          <Stack.Screen name="screens/site/validateAccount"
+                        options={{title: 'validate account', headerShown: false, gestureEnabled: false}}
+                        component={ValidateAccountScreen}/>
+          <Stack.Screen name="screens/site/notFound.tsx"
+                        options={{title: 'Not Found', headerShown: false, gestureEnabled: false}}
+                        component={NotFoundScreen}/>
         </Stack.Navigator>
     </ThemeProvider>
   );

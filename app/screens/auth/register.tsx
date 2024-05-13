@@ -1,5 +1,4 @@
 import {
-  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -17,19 +16,14 @@ import {app, db} from "@/app/firebase-config"
 import {createUserWithEmailAndPassword, getAuth,} from "@firebase/auth";
 import {useNavigation} from "@react-navigation/core";
 import {CommonActions} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {error} from '@/constants/errorCodes';
-import { errorHandler } from '@/utils/errorHandler';
-import { addDoc, collection } from 'firebase/firestore';
+import {errorHandler} from '@/utils/errorHandler';
+import {addDoc, collection} from 'firebase/firestore';
 
 export default function LoginScreen() {
 
-
-  const {top} = useSafeAreaInsets()
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
   const auth = getAuth(app);
-
 
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
@@ -38,7 +32,6 @@ export default function LoginScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigation = useNavigation()
-
 
   const onCreateUserprofile = async (user: any) => {
     await addDoc(collection(db, 'user_profile'), {
@@ -110,11 +103,7 @@ export default function LoginScreen() {
             {/*LOGIN FORM*/}
             <View style={{paddingBottom: 18}}>
               <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Nombre</Text>
-              <View style={{
-                borderColor: '#fff',
-                borderRadius: '4px',
-                borderWidth: '0.777px'
-              }}>
+              <View style={styles.input}>
                 <TextInput style={{
                   color: '#fff',
                   fontSize: 18,
@@ -128,11 +117,7 @@ export default function LoginScreen() {
             </View>
             <View style={{paddingBottom: 18}}>
               <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Apellido</Text>
-              <View style={{
-                borderColor: '#fff',
-                borderRadius: '4px',
-                borderWidth: '0.777px'
-              }}>
+              <View style={styles.input}>
                 <TextInput style={{
                   color: '#fff',
                   fontSize: 18,
@@ -146,11 +131,7 @@ export default function LoginScreen() {
             </View>
             <View style={{paddingBottom: 18}}>
               <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Email</Text>
-              <View style={{
-                borderColor: '#fff',
-                borderRadius: '4px',
-                borderWidth: '0.777px'
-              }}>
+              <View style={styles.input}>
                 <TextInput style={{
                   color: '#fff',
                   fontSize: 18,
@@ -164,11 +145,7 @@ export default function LoginScreen() {
             </View>
             <View style={{paddingBottom: 18}}>
               <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Contraseña</Text>
-              <View style={{
-                borderColor: '#fff',
-                borderRadius: '4px',
-                borderWidth: '0.777px'
-              }}>
+              <View style={styles.input}>
                 <TextInput style={{
                   color: '#fff',
                   fontSize: 18,
@@ -182,11 +159,7 @@ export default function LoginScreen() {
             </View>
             <View style={{paddingBottom: 18}}>
               <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>Confirmar contraseña</Text>
-              <View style={{
-                borderColor: '#fff',
-                borderRadius: '4px',
-                borderWidth: '0.777px'
-              }}>
+              <View style={styles.input}>
                 <TextInput style={{
                   color: '#fff',
                   fontSize: 18,
@@ -218,6 +191,12 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: '#0c2b43'
+  },
+
+  input: {
+    borderColor: '#fff',
+    borderRadius: 4,
+    borderWidth: 0.777,
   },
 
   button: {

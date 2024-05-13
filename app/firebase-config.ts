@@ -1,11 +1,14 @@
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { initializeApp, } from "firebase/app";
-import {collection, getDocs, getFirestore } from "firebase/firestore";
-import {getReactNativePersistence, initializeAuth } from "firebase/auth";
+import {initializeApp} from "firebase/app";
+import {getFirestore} from "firebase/firestore";
+import {getReactNativePersistence, initializeAuth} from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
+// TODO: hacer que no de el error en el '@env'
+// import {EXPO_FIREBASE_API_KEY} from '@env';
+// console.log(EXPO_FIREBASE_API_KEY)
 
 // App's Firebase configuration
 export const firebaseConfig = {
@@ -22,9 +25,9 @@ const app = initializeApp(firebaseConfig);
 
 initializeAuth(app, {
     persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-});2
+});
 
-// Conection to Data base
+// Connection to Data base
 const db = getFirestore(app)
 
 export { app, db };

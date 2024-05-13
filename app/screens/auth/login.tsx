@@ -1,4 +1,4 @@
-import {Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Image, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from "react";
 
 // Firebase configuration
@@ -7,6 +7,7 @@ import {getAuth, signInWithEmailAndPassword,} from "@firebase/auth";
 import {useNavigation} from "@react-navigation/core";
 import {CommonActions} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 
 export default function LoginScreen() {
 
@@ -41,8 +42,6 @@ export default function LoginScreen() {
       })
   }
 
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 90 : 0;
-
   return (
     <KeyboardAvoidingView style={{flex: 1}}
                           behavior='padding' keyboardVerticalOffset={0}
@@ -66,11 +65,7 @@ export default function LoginScreen() {
           {/*LOGIN FORM*/}
           <View style={{paddingBottom: 18}}>
             <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Email</Text>
-            <View style={{
-              borderColor: '#fff',
-              borderRadius: '4px',
-              borderWidth: '0.777px'
-            }}>
+            <View style={styles.input}>
               <TextInput style={{
                 color: '#fff',
                 fontSize: 18,
@@ -84,11 +79,7 @@ export default function LoginScreen() {
           </View>
           <View style={{paddingBottom: 18}}>
             <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>Password</Text>
-            <View style={{
-              borderColor: '#fff',
-              borderRadius: '4px',
-              borderWidth: '0.777px'
-            }}>
+            <View style={styles.input}>
               <TextInput style={{
                 color: '#fff',
                 fontSize: 18,
@@ -127,6 +118,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#0c2b43',
   },
 
+  input: {
+    borderColor: '#fff',
+    borderRadius: 4,
+    borderWidth: 0.777,
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
