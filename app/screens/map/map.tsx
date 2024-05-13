@@ -3,8 +3,6 @@ import {StyleSheet, Text, View} from 'react-native';
 export default function MapScreen() {
   return (
     <View style={{width: '100%', height: '100%', backgroundColor: 'white'}}>
-      {/*HEADER*/}
-      <Text style={{color: '#000', fontSize: 150}}>flecha para ir atrás</Text>
       {/*BODY*/}
       <Text style={{color: '#000', fontSize: 150}}>mapa de fondo</Text>
       {/*FOOTER*/}

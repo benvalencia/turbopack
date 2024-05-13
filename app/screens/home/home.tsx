@@ -17,6 +17,13 @@ export default function HomeScreen() {
       }));
   }
 
+  const goToProfile = () => {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'screens/profile/profile',
+      }));
+  }
+
   return (
     <View style={{width: '100%', height: '100%', backgroundColor: Colors.primary, paddingTop: top}}>
       {/*HEADER*/}
@@ -44,7 +51,7 @@ export default function HomeScreen() {
         {/*botón perfil*/}
         <View>
           <Text>home</Text>
-          <Text>perfil</Text>
+          <Text onPress={goToProfile}>perfil</Text>
         </View>
       </View>
     </View>

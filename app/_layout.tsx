@@ -17,6 +17,7 @@ import {useRouter} from 'expo-router';
 import ValidateAccountScreen from '@/app/screens/site/validateAccount';
 import NotFoundScreen from "@/app/screens/site/notFound";
 import MapScreen from "@/app/screens/map/map";
+import ProfileScreen from "@/app/screens/profile/profile";
 
 const Stack = createStackNavigator();
 
@@ -43,8 +44,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack.Navigator initialRouteName="screens/home/home">
-          <Stack.Screen name="screens/auth/login" options={{title: 'login', headerShown: false, gestureEnabled: false}} component={LoginScreen}/>
-          <Stack.Screen name="screens/auth/register" options={{
+
+        <Stack.Screen name="screens/auth/login" options={{title: 'Login', headerShown: false, gestureEnabled: false}}
+                      component={LoginScreen}/>
+
+        <Stack.Screen name="screens/auth/register" options={{
             title: '',
             headerBackTitle: '',
             headerShadowVisible: false,
@@ -55,17 +59,45 @@ export default function RootLayout() {
                 </Pressable>
             ),
           }} component={RegisterScreen}/>
-          <Stack.Screen name="screens/home/home" options={{title: 'home', headerShown: false, gestureEnabled: false}} component={HomeScreen}/>
 
-          <Stack.Screen name="screens/site/validateAccount"
+        <Stack.Screen name="screens/home/home" options={{title: 'home', headerShown: false, gestureEnabled: false}}
+                      component={HomeScreen}/>
+
+
+        <Stack.Screen name="screens/site/validateAccount"
                         options={{title: 'validate account', headerShown: false, gestureEnabled: false}}
                         component={ValidateAccountScreen}/>
+
         <Stack.Screen name="screens/site/notFound"
                         options={{title: 'Not Found', headerShown: false, gestureEnabled: false}}
                         component={NotFoundScreen}/>
 
+        <Stack.Screen name="screens/profile/profile"
+                      options={{
+                        title: '',
+                        headerBackTitle: '',
+                        headerShadowVisible: false,
+                        headerStyle: {backgroundColor: '#0c2b43'},
+                        headerLeft: () => (
+                          <Pressable onPress={router.back}>
+                            <AntDesign name="arrowleft" size={35} color="white" style={{paddingLeft: 5}}/>
+                          </Pressable>
+                        ),
+                      }}
+                      component={ProfileScreen}/>
+
         <Stack.Screen name="screens/map/map"
-                      options={{title: 'Map', headerShown: false, gestureEnabled: true}}
+                      options={{
+                        title: '',
+                        headerBackTitle: '',
+                        headerShadowVisible: false,
+                        headerStyle: {backgroundColor: '#0c2b43'},
+                        headerLeft: () => (
+                          <Pressable onPress={router.back}>
+                            <AntDesign name="arrowleft" size={35} color="white" style={{paddingLeft: 5}}/>
+                          </Pressable>
+                        ),
+                      }}
                       component={MapScreen}/>
         </Stack.Navigator>
     </ThemeProvider>
