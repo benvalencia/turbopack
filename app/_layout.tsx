@@ -16,6 +16,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import {useRouter} from 'expo-router';
 import ValidateAccountScreen from '@/app/screens/site/validateAccount';
 import NotFoundScreen from "@/app/screens/site/notFound";
+import MapScreen from "@/app/screens/map/map";
 
 const Stack = createStackNavigator();
 
@@ -41,7 +42,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack.Navigator initialRouteName="screens/auth/login">
+      <Stack.Navigator initialRouteName="screens/home/home">
           <Stack.Screen name="screens/auth/login" options={{title: 'login', headerShown: false, gestureEnabled: false}} component={LoginScreen}/>
           <Stack.Screen name="screens/auth/register" options={{
             title: '',
@@ -59,9 +60,13 @@ export default function RootLayout() {
           <Stack.Screen name="screens/site/validateAccount"
                         options={{title: 'validate account', headerShown: false, gestureEnabled: false}}
                         component={ValidateAccountScreen}/>
-          <Stack.Screen name="screens/site/notFound.tsx"
+        <Stack.Screen name="screens/site/notFound"
                         options={{title: 'Not Found', headerShown: false, gestureEnabled: false}}
                         component={NotFoundScreen}/>
+
+        <Stack.Screen name="screens/map/map"
+                      options={{title: 'Map', headerShown: false, gestureEnabled: true}}
+                      component={MapScreen}/>
         </Stack.Navigator>
     </ThemeProvider>
   );

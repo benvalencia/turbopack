@@ -1,6 +1,6 @@
-# Welcome to your Expo app 👋
+# Bienvenido a Turbopack 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este es un proyecto de Turbopack.
 
 ## Get started
 

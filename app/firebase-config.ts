@@ -6,10 +6,6 @@ import {getFirestore} from "firebase/firestore";
 import {getReactNativePersistence, initializeAuth} from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
-// TODO: hacer que no de el error en el '@env'
-// import {EXPO_FIREBASE_API_KEY} from '@env';
-// console.log(EXPO_FIREBASE_API_KEY)
-
 // App's Firebase configuration
 export const firebaseConfig = {
     apiKey: "AIzaSyCXgL0nEooQelAIkavVEVHsv_6yMKfGcRI",
