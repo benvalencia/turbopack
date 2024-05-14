@@ -1,9 +1,10 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {Colors} from "@/constants/Colors";
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CommonActions} from "@react-navigation/native";
 import {useNavigation} from "@react-navigation/core";
+import {scale} from 'react-native-size-matters';
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function HomeScreen() {
 
@@ -25,19 +26,21 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={{width: '100%', height: '100%', backgroundColor: Colors.primary, paddingTop: top}}>
+    <View style={{width: '100%', height: '100%', backgroundColor: 'white', paddingTop: top}}>
       {/*HEADER*/}
-      <View>
-        <View style={styles.input}>
-          <TextInput style={{
-            color: '#fff',
-            fontSize: 18,
-            padding: 5.777,
-          }}
-                     placeholder="Hacer un envio?"
+      <View style={styles.headerContainer}>
+
+        <Pressable style={styles.inputTextContainer}
                      onPress={goToMap}
-          ></TextInput>
-        </View>
+        >
+
+          <Text style={styles.inputTextComponent}>
+            <AntDesign name="search1" size={23} color="black" style={{}}/>
+            Hacer un envio?
+          </Text>
+        </Pressable>
+
+
       </View>
 
       <View>
@@ -59,27 +62,34 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  // HEADER CONTAINER
+  headerContainer: {
+    padding: 15,
   },
 
-  input: {
+  inputTextContainer: {
+    backgroundColor: 'white',
     borderColor: '#fff',
-    borderRadius: 4,
+    borderRadius: 5,
     borderWidth: 0.777,
-  },
 
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: scale(-2),
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: scale(7.5),
+    elevation: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  inputTextComponent: {
+    color: 'black',
+    fontSize: 21,
+    height: 45,
+    // TODO:  refactor este line height
+    lineHeight: 35,
+    verticalAlign: 'middle',
+    padding: 5.777,
+
+  }
 });
