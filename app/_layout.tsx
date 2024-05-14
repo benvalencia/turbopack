@@ -43,7 +43,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack.Navigator initialRouteName="screens/home/home">
+      <Stack.Navigator initialRouteName="screens/auth/login">
 
         <Stack.Screen name="screens/auth/login" options={{title: 'Login', headerShown: false, gestureEnabled: false}}
                       component={LoginScreen}/>

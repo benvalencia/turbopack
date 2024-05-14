@@ -83,7 +83,7 @@ export default function LoginScreen() {
     >
 
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{}}>
+        <ScrollView keyboardShouldPersistTaps='handled'>
           <View style={{
             margin: 25,
           }}>

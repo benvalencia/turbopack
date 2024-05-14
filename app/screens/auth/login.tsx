@@ -1,4 +1,4 @@
-import {Image, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Image, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useState} from "react";
 
 // Firebase configuration
@@ -46,84 +46,95 @@ export default function LoginScreen() {
     <KeyboardAvoidingView style={{flex: 1}}
                           behavior='padding' keyboardVerticalOffset={0}
     >
+      <ScrollView keyboardShouldPersistTaps='handled'
+                  contentContainerStyle={{flexGrow: 1, justifyContent: 'center', gap: 20}}
+                  style={[styles.scrollViewContainer, {paddingTop: top}]}>
 
-      <View style={{paddingTop: top, backgroundColor: '#0c2b43'}}>
-        <View style={styles.container}>
+        {/*LOGO*/}
+        <View style={styles.imageContainer}>
+          <Image source={require('../../../assets/images/branding/logo.jpeg')}
+                 style={styles.imageComponent}
+          ></Image>
+        </View>
 
-          {/*LOGO*/}
-          <View style={{
-            marginRight: 'auto',
-            marginLeft: 'auto',
-          }}>
-            <Image source={require('../../../assets/images/branding/logo.jpeg')}
-                   style={{
-                     width: 130,
-                     height: 130
-                   }}
-            ></Image>
-          </View>
-          {/*LOGIN FORM*/}
-          <View style={{paddingBottom: 18}}>
-            <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Email</Text>
-            <View style={styles.input}>
-              <TextInput style={{
-                color: '#fff',
-                fontSize: 18,
-                padding: 5.777,
-              }}
+        {/*LOGIN FORM*/}
+        <View style={styles.loginContainer}>
+          {/*EMAIL INPUT*/}
+          <View style={styles.inputTextContainer}>
+            <Text style={styles.inputTextLabel}>Email</Text>
+            <View style={styles.inputTextComponent}>
+              <TextInput style={styles.inputTextInput}
                          placeholder="Email"
-                         onChangeText={(text) => setUsername(text)}
-              ></TextInput>
+                         onChangeText={(text) => setUsername(text)}></TextInput>
             </View>
-
           </View>
-          <View style={{paddingBottom: 18}}>
-            <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>Password</Text>
-            <View style={styles.input}>
-              <TextInput style={{
-                color: '#fff',
-                fontSize: 18,
-                padding: 5.777,
-              }}
+          {/*PASSWORD INPUT*/}
+          <View style={styles.inputTextContainer}>
+            <Text style={styles.inputTextLabel}>Password</Text>
+            <View style={styles.inputTextComponent}>
+              <TextInput style={styles.inputTextInput}
                          secureTextEntry={true}
                          placeholder="Password"
-                         onChangeText={(text) => setPassword(text)}
-
-              ></TextInput>
+                         onChangeText={(text) => setPassword(text)}></TextInput>
             </View>
           </View>
-
-
-          {/*BUTTONS LOGIN AND REGISTER*/}
-          <View style={{paddingBottom: 18}}>
-            <Pressable style={styles.button} onPress={handleSingIn}>
-              <Text style={styles.text}>{'Login'}</Text>
-            </Pressable>
-          </View>
-          <View style={{paddingBottom: 18}}>
-            <Pressable style={styles.button} onPress={goToRegister}>
-              <Text style={styles.text}>{'Register'}</Text>
-            </Pressable>
-          </View>
         </View>
-      </View>
+
+        {/*BUTTONS LOGIN AND REGISTER*/}
+        <Pressable style={styles.buttonContainer} onPress={handleSingIn}>
+          <Text style={styles.buttonText}>{'Login'}</Text>
+        </Pressable>
+        <Pressable style={styles.buttonContainer} onPress={goToRegister}>
+          <Text style={styles.buttonText}>{'Register'}</Text>
+        </Pressable>
+
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 15,
-    height: '100%',
+  // SCROLL VIEW CONTAINER
+  scrollViewContainer: {
     backgroundColor: '#0c2b43',
+    height: '100%',
+    padding: 15,
   },
 
-  input: {
+  // IMAGE CONTAINER
+  imageContainer: {
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
+  imageComponent: {
+    width: 150,
+    height: 150
+  },
+
+  // FORM CONTAINER INPUT TEXT
+  loginContainer: {
+    gap: 14,
+  },
+  inputTextContainer: {
+    gap: 7,
+  },
+  inputTextLabel: {
+    color: '#fff',
+    fontSize: 18
+  },
+  inputTextComponent: {
     borderColor: '#fff',
     borderRadius: 4,
     borderWidth: 0.777,
   },
-  button: {
+  inputTextInput: {
+    color: '#fff',
+    fontSize: 18,
+    padding: 5.777,
+  },
+
+  // BUTTON CONTAINER
+  buttonContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
@@ -132,22 +143,11 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: 'white',
   },
-  text: {
+  buttonText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'light',
     letterSpacing: 0.25,
     color: 'black',
-  },
-
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
   },
 });
