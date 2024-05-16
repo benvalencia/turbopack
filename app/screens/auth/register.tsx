@@ -92,10 +92,10 @@ export default function LoginScreen() {
               marginRight: 'auto',
               marginLeft: 'auto',
             }}>
-              <Image source={require('../../../assets/images/branding/logo.jpeg')}
+              <Image source={require('../../../assets/images/branding/TurboPack_logo.jpeg')}
                      style={{
-                       width: 130,
-                       height: 130
+                       width: 200,
+                       height: 200
                      }}
               ></Image>
             </View>

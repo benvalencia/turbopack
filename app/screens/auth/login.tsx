@@ -7,6 +7,7 @@ import {getAuth, signInWithEmailAndPassword,} from "@firebase/auth";
 import {useNavigation} from "@react-navigation/core";
 import {CommonActions} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Colors} from "@/constants/Colors";
 
 
 export default function LoginScreen() {
@@ -47,12 +48,12 @@ export default function LoginScreen() {
                           behavior='padding' keyboardVerticalOffset={0}
     >
       <ScrollView keyboardShouldPersistTaps='handled'
-                  contentContainerStyle={{flexGrow: 1, justifyContent: 'center', gap: 20}}
+                  contentContainerStyle={{flexGrow: 1, gap: 20}}
                   style={[styles.scrollViewContainer, {paddingTop: top}]}>
 
         {/*LOGO*/}
         <View style={styles.imageContainer}>
-          <Image source={require('../../../assets/images/branding/logo.jpeg')}
+          <Image source={require('../../../assets/images/branding/TurboPack_logo.jpeg')}
                  style={styles.imageComponent}
           ></Image>
         </View>
@@ -61,20 +62,22 @@ export default function LoginScreen() {
         <View style={styles.loginContainer}>
           {/*EMAIL INPUT*/}
           <View style={styles.inputTextContainer}>
-            <Text style={styles.inputTextLabel}>Email</Text>
+            <Text style={styles.inputTextLabel}>E-mail</Text>
             <View style={styles.inputTextComponent}>
               <TextInput style={styles.inputTextInput}
-                         placeholder="Email"
+                         placeholder="E-mail"
+                         placeholderTextColor={'grey'}
                          onChangeText={(text) => setUsername(text)}></TextInput>
             </View>
           </View>
           {/*PASSWORD INPUT*/}
           <View style={styles.inputTextContainer}>
-            <Text style={styles.inputTextLabel}>Password</Text>
+            <Text style={styles.inputTextLabel}>Contraseña</Text>
             <View style={styles.inputTextComponent}>
               <TextInput style={styles.inputTextInput}
                          secureTextEntry={true}
-                         placeholder="Password"
+                         placeholder="Contraseña"
+                         placeholderTextColor={'grey'}
                          onChangeText={(text) => setPassword(text)}></TextInput>
             </View>
           </View>
@@ -82,10 +85,10 @@ export default function LoginScreen() {
 
         {/*BUTTONS LOGIN AND REGISTER*/}
         <Pressable style={styles.buttonContainer} onPress={handleSingIn}>
-          <Text style={styles.buttonText}>{'Login'}</Text>
+          <Text style={styles.buttonText}>{'Entrar'}</Text>
         </Pressable>
         <Pressable style={styles.buttonContainer} onPress={goToRegister}>
-          <Text style={styles.buttonText}>{'Register'}</Text>
+          <Text style={styles.buttonText}>{'Registrarse'}</Text>
         </Pressable>
 
       </ScrollView>
@@ -96,7 +99,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   // SCROLL VIEW CONTAINER
   scrollViewContainer: {
-    backgroundColor: '#0c2b43',
+    backgroundColor: '#fff',
     height: '100%',
     padding: 15,
   },
@@ -107,8 +110,8 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   imageComponent: {
-    width: 150,
-    height: 150
+    width: 200,
+    height: 200
   },
 
   // FORM CONTAINER INPUT TEXT
@@ -119,18 +122,18 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   inputTextLabel: {
-    color: '#fff',
-    fontSize: 18
+    color: Colors.light.text,
+    fontSize: 16
   },
   inputTextComponent: {
-    borderColor: '#fff',
+    borderColor: Colors.light.text,
     borderRadius: 4,
     borderWidth: 0.777,
   },
   inputTextInput: {
-    color: '#fff',
-    fontSize: 18,
-    padding: 5.777,
+    color: Colors.light.text,
+    fontSize: 16,
+    padding: 7.777,
   },
 
   // BUTTON CONTAINER
@@ -139,15 +142,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
-    backgroundColor: 'white',
+    backgroundColor: Colors.tertiary,
   },
   buttonText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'light',
     letterSpacing: 0.25,
-    color: 'black',
+    color: 'white',
   },
 });
