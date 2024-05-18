@@ -19,6 +19,7 @@ import {CommonActions} from '@react-navigation/native';
 
 import {errorHandler} from '@/utils/errorHandler';
 import {addDoc, collection} from 'firebase/firestore';
+import {Colors} from "@/constants/Colors";
 
 export default function LoginScreen() {
 
@@ -79,151 +80,136 @@ export default function LoginScreen() {
 
   return (
     <KeyboardAvoidingView style={{flex: 1}}
-                          behavior='padding' keyboardVerticalOffset={keyboardVerticalOffset}
-    >
-
-      <View style={styles.container}>
-        <ScrollView keyboardShouldPersistTaps='handled'>
-          <View style={{
-            margin: 25,
-          }}>
-            {/*LOGO*/}
-            <View style={{
-              marginRight: 'auto',
-              marginLeft: 'auto',
-            }}>
-              <Image source={require('../../../assets/images/branding/TurboPack_logo.jpeg')}
-                     style={{
-                       width: 200,
-                       height: 200
-                     }}
-              ></Image>
-            </View>
-
-            {/*LOGIN FORM*/}
-            <View style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Nombre</Text>
-              <View style={styles.input}>
-                <TextInput style={{
-                  color: '#fff',
-                  fontSize: 18,
-                  padding: 5.777,
-                }}
-                           placeholder="Nombre"
-                           onChangeText={(text) => setName(text)}
-                ></TextInput>
-              </View>
-
-            </View>
-            <View style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Apellido</Text>
-              <View style={styles.input}>
-                <TextInput style={{
-                  color: '#fff',
-                  fontSize: 18,
-                  padding: 5.777,
-                }}
-                           placeholder="Apellido"
-                           onChangeText={(text) => setLastname(text)}
-                ></TextInput>
-              </View>
-
-            </View>
-            <View style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Email</Text>
-              <View style={styles.input}>
-                <TextInput style={{
-                  color: '#fff',
-                  fontSize: 18,
-                  padding: 5.777,
-                }}
-                           placeholder="Email"
-                           onChangeText={(text) => setEmail(text)}
-                ></TextInput>
-              </View>
-
-            </View>
-            <View style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 18, paddingBottom: 7}}>Contraseña</Text>
-              <View style={styles.input}>
-                <TextInput style={{
-                  color: '#fff',
-                  fontSize: 18,
-                  padding: 5.777,
-                }}
-                           placeholder="Contraseña"
-                           onChangeText={(text) => setPassword(text)}
-                ></TextInput>
-              </View>
-
-            </View>
-            <View style={{paddingBottom: 18}}>
-              <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>Confirmar contraseña</Text>
-              <View style={styles.input}>
-                <TextInput style={{
-                  color: '#fff',
-                  fontSize: 18,
-                  padding: 5.777,
-                }}
-                           secureTextEntry={true}
-                           placeholder="Confirmar contraseña"
-                           onChangeText={(text) => setConfirmPassword(text)}
-
-                ></TextInput>
-              </View>
-            </View>
-
-            {/*BUTTONS LOGIN AND REGISTER*/}
-            <View style={{paddingBottom: 18}}>
-              <Pressable style={styles.button} onPress={handleSingUp}>
-                <Text style={styles.text}>{'Registrar'}</Text>
-              </Pressable>
+                          behavior='padding' keyboardVerticalOffset={keyboardVerticalOffset}>
+      <ScrollView keyboardShouldPersistTaps='handled' style={styles.scrollViewContainer}>
+        {/*LOGO*/}
+        <View style={styles.imageContainer}>
+          <Image source={require('../../../assets/images/branding/TurboPack_logo.jpeg')}
+                 style={styles.imageComponent}
+          ></Image>
+        </View>
+        {/*REGISTER FORM*/}
+        <View style={styles.registerContainer}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabelComponent}>Nombre</Text>
+            <View style={styles.inputComponent}>
+              <TextInput style={styles.inputComponentInput}
+                         placeholder="Nombre"
+                         placeholderTextColor={'grey'}
+                         onChangeText={(text) => setName(text)}></TextInput>
             </View>
           </View>
-        </ScrollView>
-      </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabelComponent}>Apellido</Text>
+            <View style={styles.inputComponent}>
+              <TextInput style={styles.inputComponentInput}
+                         placeholder="Apellido"
+                         placeholderTextColor={'grey'}
+                         onChangeText={(text) => setLastname(text)}></TextInput>
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabelComponent}>E-mail</Text>
+            <View style={styles.inputComponent}>
+              <TextInput style={styles.inputComponentInput}
+                         placeholder="E-mail"
+                         placeholderTextColor={'grey'}
+                         onChangeText={(text) => setEmail(text)}></TextInput>
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabelComponent}>Contraseña</Text>
+            <View style={styles.inputComponent}>
+              <TextInput style={styles.inputComponentInput}
+                         placeholder="Contraseña"
+                         secureTextEntry={true}
+                         placeholderTextColor={'grey'}
+                         onChangeText={(text) => setPassword(text)}></TextInput>
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabelComponent}>Confirmar contraseña</Text>
+            <View style={styles.inputComponent}>
+              <TextInput style={styles.inputComponentInput}
+                         secureTextEntry={true}
+                         placeholder="Confirmar contraseña"
+                         placeholderTextColor={'grey'}
+                         onChangeText={(text) => setConfirmPassword(text)}></TextInput>
+            </View>
+          </View>
+        </View>
+        {/*BUTTONS LOGIN AND REGISTER*/}
+        <View style={styles.buttonContainer}>
+          <Pressable style={styles.buttonComponent} onPress={handleSingUp}>
+            <Text style={styles.buttonComponentText}>{'Registrarse'}</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
-
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: '#0c2b43'
+  // SCROLL VIEW CONTAINER
+  scrollViewContainer: {
+    backgroundColor: 'white',
+    padding: 15,
   },
 
-  input: {
-    borderColor: '#fff',
+  // IMAGE CONTAINER
+  imageContainer: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  imageComponent: {
+    width: 200,
+    height: 200,
+  },
+
+  // REGISTER CONTAINER
+  registerContainer: {
+    gap: 14,
+  },
+
+  // INPUT CONTAINER
+  inputContainer: {
+    gap: 7,
+  },
+
+  inputLabelComponent: {
+    color: Colors.light.text,
+    fontSize: 16
+  },
+  inputComponent: {
+    borderColor: Colors.light.text,
     borderRadius: 4,
     borderWidth: 0.777,
   },
+  inputComponentInput: {
+    color: Colors.light.text,
+    fontSize: 16,
+    padding: 7.777,
+  },
 
-  button: {
+  // BUTTON CONTAINER
+  buttonContainer: {
+    paddingTop: 15,
+    paddingBottom: 55,
+  },
+  buttonComponent: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
-    backgroundColor: 'white',
+    backgroundColor: Colors.tertiary,
   },
-  text: {
+  buttonComponentText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'light',
     letterSpacing: 0.25,
-    color: 'black',
-  },
-
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+    color: 'white',
   },
 });

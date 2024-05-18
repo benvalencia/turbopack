@@ -52,10 +52,10 @@ export default function RootLayout() {
             title: '',
             headerBackTitle: '',
             headerShadowVisible: false,
-            headerStyle: { backgroundColor: '#0c2b43'},
+          headerStyle: {backgroundColor: '#fff'},
             headerLeft: () => (
                 <Pressable onPress={router.back}>
-                  <AntDesign name="arrowleft" size={35} color="white" style={{ paddingLeft: 5}}/>
+                  <AntDesign name="arrowleft" size={35} color="black" style={{paddingLeft: 5}}/>
                 </Pressable>
             ),
           }} component={RegisterScreen}/>
