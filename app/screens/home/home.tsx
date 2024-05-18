@@ -1,15 +1,45 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {CommonActions} from "@react-navigation/native";
 import {useNavigation} from "@react-navigation/core";
 import {scale} from 'react-native-size-matters';
 import AntDesign from "@expo/vector-icons/AntDesign";
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {db} from "@/app/firebase-config";
 
-export default function HomeScreen() {
+export default function HomeScreen({route}: any) {
 
   const {top} = useSafeAreaInsets()
   const navigation = useNavigation()
+  const {uid} = route.params;
+
+  const [userProfile, setUserProfile] = useState<any | null>(null)
+  const [loading, setLoading] = useState(true)
+
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const profile = await getProfile()
+      setUserProfile(profile)
+      setLoading(false);
+    };
+
+    fetchProfile();
+  }, [])
+
+
+  const getProfile = async () => {
+    let profileResult;
+    const q = query(collection(db, "user_profile"), where("uid", "==", uid));
+    await getDocs(q).then((res) => {
+      res.forEach((doc) => {
+        profileResult = doc.data()
+      });
+    });
+
+    return profileResult;
+  }
 
   const goToMap = () => {
     navigation.dispatch(
@@ -23,6 +53,22 @@ export default function HomeScreen() {
       CommonActions.navigate({
         name: 'screens/profile/profile',
       }));
+  }
+
+
+  if (loading) {
+    return (
+      <View style={{}}>
+        <Text>test</Text>
+      </View>
+    )
+  }
+  if (!userProfile) {
+    return (
+      <View>
+        <Text>profile</Text>
+      </View>
+    )
   }
 
   return (
@@ -46,6 +92,15 @@ export default function HomeScreen() {
       <View>
         <Text style={{color: '#000', fontSize: 20}}>Envíos anteriores</Text>
         <Text>Aquí los envíos anteriores</Text>
+      </View>
+
+      <View>
+        <Text>email: {userProfile.email}</Text>
+        <Text>isAdmin: {userProfile.isAdmin ? 'true' : 'false'}</Text>
+        <Text>isDeliver: {userProfile.isDeliver ? 'true' : 'false'}</Text>
+        <Text>lastName: {userProfile.lastname}</Text>
+        <Text>name: {userProfile.name}</Text>
+        <Text>uid: {userProfile.uid}</Text>
       </View>
 
       <View>

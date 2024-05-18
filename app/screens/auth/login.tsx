@@ -31,11 +31,12 @@ export default function LoginScreen() {
   const handleSingIn = () => {
     signInWithEmailAndPassword(auth, username, password)
       .then((res) => {
-        const user = res.user;
-        // console.log(user);
         navigation.dispatch(
           CommonActions.navigate({
             name: 'screens/home/home',
+            params: {
+              uid: res.user.uid
+            }
           }));
       })
       .catch(error => {
