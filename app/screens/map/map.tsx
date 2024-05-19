@@ -11,7 +11,10 @@ export default function MapScreen() {
     <View style={styles.container}>
       <MapView style={styles.map}
                ref={models.mapRef}
-               showsUserLocation onUserLocationChange={operations.handleLocationChange}/>
+               showsUserLocation onUserLocationChange={operations.handleLocationChange}
+               showsMyLocationButton={false}
+               showsCompass={false}
+      />
       <LocationService></LocationService>
     </View>
   );
