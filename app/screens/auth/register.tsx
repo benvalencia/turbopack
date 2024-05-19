@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
   // SCROLL VIEW CONTAINER
   scrollViewContainer: {
     backgroundColor: 'white',
-    padding: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 
   // IMAGE CONTAINER
