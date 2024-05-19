@@ -3,6 +3,7 @@ import React from "react";
 import {useNavigation} from "@react-navigation/core";
 import {CommonActions} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Colors} from "@/constants/Colors";
 
 export default function ValidateAccountScreen() {
   const {top} = useSafeAreaInsets()
@@ -17,59 +18,74 @@ export default function ValidateAccountScreen() {
   }
 
   return (
-    <View style={{paddingTop: top, backgroundColor: '#0c2b43'}}>
-      <View style={styles.container}>
-        {/*LOGO*/}
-        <View style={{
-          marginRight: 'auto',
-          marginLeft: 'auto',
-        }}>
-          <Image source={require('../../../assets/images/branding/logo.jpeg')}
-                 style={{
-                   width: 130,
-                   height: 130
-                 }}
-          ></Image>
-        </View>
-        {/* MESSAGE */}
-        <View style={{paddingTop: 50, paddingBottom: 50}}>
-          <Text style={{color: '#fff', fontSize: 17, paddingBottom: 7}}>
-            Te hemos enviado un e-mail, valida tu cuenta a través de el link en el e-mail.
-          </Text>
-        </View>
+    <View style={[styles.validationContainer, {paddingTop: top}]}>
+      {/*LOGO*/}
+      <View style={styles.imageContainer}>
+        <Image source={require('../../../assets/images/branding/TurboPack_logo.jpeg')}
+               style={styles.imageComponent}
+        ></Image>
+      </View>
 
-        {/*BUTTON GO TO LOGIN */}
-        <View style={{paddingBottom: 18}}>
-          <Pressable style={styles.button} onPress={goToLogin}>
-            <Text style={styles.text}>{'ir al Login'}</Text>
-          </Pressable>
-        </View>
+      {/* MESSAGE */}
+      <View>
+        <Text style={styles.textComponent}>
+          Te hemos enviado un e-mail, valida tu cuenta a través de el link en el e-mail.
+        </Text>
+      </View>
+
+      {/*BUTTON GO TO LOGIN */}
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.buttonComponent} onPress={goToLogin}>
+          <Text style={styles.buttonComponentText}>{'ir al Login'}</Text>
+        </Pressable>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 15,
-    height: '100%',
-    backgroundColor: '#0c2b43',
+  // VALIDATION CONTAINER
+  validationContainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+    gap: 35,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 
-  button: {
+  // IMAGE CONTAINER
+  imageContainer: {
+    alignItems: 'center'
+  },
+  imageComponent: {
+    width: 200,
+    height: 200
+  },
+
+  // TEXT CONTAINER
+  textComponent: {
+    fontSize: 16,
+  },
+
+  // BUTTON CONTAINER
+  buttonContainer: {
+    paddingTop: 15,
+    paddingBottom: 55,
+  },
+  buttonComponent: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
-    backgroundColor: 'white',
+    backgroundColor: Colors.tertiary,
   },
-  text: {
+  buttonComponentText: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: 'light',
     letterSpacing: 0.25,
-    color: 'black',
-  },
+    color: 'white',
+  }
 });
