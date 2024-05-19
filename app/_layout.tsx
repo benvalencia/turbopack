@@ -91,12 +91,7 @@ export default function RootLayout() {
                         title: '',
                         headerBackTitle: '',
                         headerShadowVisible: false,
-                        headerStyle: {backgroundColor: '#0c2b43'},
-                        headerLeft: () => (
-                          <Pressable onPress={router.back}>
-                            <AntDesign name="arrowleft" size={35} color="white" style={{paddingLeft: 5}}/>
-                          </Pressable>
-                        ),
+                        headerShown: false,
                       }}
                       component={MapScreen}/>
         </Stack.Navigator>

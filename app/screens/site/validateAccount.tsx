@@ -36,7 +36,7 @@ export default function ValidateAccountScreen() {
       {/*BUTTON GO TO LOGIN */}
       <View style={styles.buttonContainer}>
         <Pressable style={styles.buttonComponent} onPress={goToLogin}>
-          <Text style={styles.buttonComponentText}>{'ir al Login'}</Text>
+          <Text style={styles.buttonComponentText}>{'Ir al Login'}</Text>
         </Pressable>
       </View>
     </View>

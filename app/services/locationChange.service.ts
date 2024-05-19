@@ -1,8 +1,8 @@
 import MapView, {UserLocationChangeEvent} from "react-native-maps";
 import {useEffect, useRef, useState} from "react";
 
-const LATITUDE_DELTA = 0.0022;
-const LONGITUDE_DELTA = 0.0022;
+const LATITUDE_DELTA = 0.0032;
+const LONGITUDE_DELTA = 0.0032;
 
 export const useMapScreen = () => {
 
