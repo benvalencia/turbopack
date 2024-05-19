@@ -74,7 +74,7 @@ export default function LoginScreen() {
   const goToValidateAccount = () => {
     navigation.dispatch(
       CommonActions.navigate({
-        name: 'screens/not-found/validateAccount',
+        name: 'screens/site/validateAccount',
       }));
   }
 
