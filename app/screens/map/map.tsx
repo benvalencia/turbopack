@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {LatLng, Marker} from 'react-native-maps';
 import {LocationService} from "@/app/services/location.service";
 import {useMapScreen} from "@/app/services/locationChange.service";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
@@ -27,7 +27,7 @@ export default function MapScreen() {
       }));
   }
 
-  const {models, operations} = useMapScreen();
+  const {models, operations, coordinateMarker} = useMapScreen();
   return (
     <KeyboardAvoidingView style={{flex: 1}}
                           behavior='padding' keyboardVerticalOffset={0}
@@ -81,7 +81,14 @@ export default function MapScreen() {
                ref={models.mapRef}
                showsUserLocation onUserLocationChange={operations.handleLocationChange}
                showsMyLocationButton={false}
-               showsCompass={false}/>
+               showsCompass={false}>
+        {/*MARKER ORIGIN*/}
+        <Marker
+          draggable={true}
+          coordinate={coordinateMarker as LatLng}/>
+        {/*MARKER DESTINATION*/}
+        <Marker coordinate={coordinateMarker as LatLng}/>
+      </MapView>
       <LocationService></LocationService>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -30,5 +30,9 @@ export const useMapScreen = () => {
     operations: {
       handleLocationChange
     },
+    coordinateMarker: {
+      longitude: userLocation?.longitude,
+      latitude: userLocation?.latitude,
+    },
   }
 }
